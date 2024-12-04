@@ -1,0 +1,8 @@
+﻿  drawing.c
+E:\Project1\Game\drawing.c(17,68): warning C4047: “函数”:“LPCTSTR”与“int”的间接级别不同
+E:\Project1\Game\drawing.c(17,68): warning C4024: “loadimageCR”: 形参和实参 3 的类型不同
+  main.c
+E:\Project1\Game\src\main.c(33,76): warning C4047: “函数”:“LPCTSTR”与“int”的间接级别不同
+E:\Project1\Game\src\main.c(33,76): warning C4024: “loadimageCR”: 形参和实参 3 的类型不同
+  正在生成代码...
+  Game.vcxproj -> E:\Project1\x64\Debug\Game.exe
