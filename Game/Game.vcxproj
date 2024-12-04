@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="drawing.c" />
+    <ClCompile Include="src\drawing.c" />
     <ClCompile Include="src\easyxC.cpp" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\util.c" />

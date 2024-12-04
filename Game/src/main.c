@@ -43,6 +43,7 @@ void FreeResources() {
 	FreeList(Animations);
 }
 
+//WIN32程序主函数
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, _In_ LPTSTR lpCmdLine, _In_ int nCmdShow) {
 	SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
 
@@ -50,6 +51,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 	
 	HWND hWnd = initgraphC(1280, 960);
 
+	//例子，可以以已有Animation为模板，新建Animation
 	Animation* peashooter1;
 	Animation* peashooter2;
 	NewAnimationFrom(&Animations, &peashooter1, &peashooter, 400, 400);
@@ -57,26 +59,29 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 
 	BeginBatchDrawC();
 	clock_t start = clock();
+	
+	//游戏主循环
 	while (1) {
 		
-		RenderList(Animations);
+		RenderList(Animations); //绘出列表中所有的Animation
 
 		FlushBatchDrawC();
 
+		//计算帧间隔
 		clock_t end = clock();
 		clock_t delta = end - start;
 		start = end;
-		peashooter->counter += delta;
-		peashooter1->counter += delta;
-		peashooter2->counter += delta;
+		
+		UpdateList(Animations, delta); //尝试更新列表中所有Animation的帧
 
+		//控制FPS
 		if (delta < 1000 / 144) {
 			Sleep(1000 / 144 - delta);
 		}
 	}
 	EndBatchDrawC();
 
-	FreeResources();
+	FreeResources(); //释放资源内存
 
 	return 0;
 }

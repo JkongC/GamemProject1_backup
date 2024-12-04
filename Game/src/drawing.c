@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <tchar.h>
+#include <time.h>
 #include "easyxC.h"
 #include "types.h"
 #include "drawing.h"
@@ -41,5 +42,12 @@ void RenderList(AnimationList* ani_list) {
 
 			putimageC(cur->pos.x, cur->pos.y, &cur->frames[cur->frame_index]);
 		}
+	}
+}
+
+void UpdateList(AnimationList* ani_list, clock_t delta) {
+	for (int i = 0; i < ani_list->size; i++) {
+		Animation* cur = ani_list->list[i];
+		cur->counter += delta;
 	}
 }

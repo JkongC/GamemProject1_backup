@@ -7,8 +7,12 @@
       "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\src\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\drawing.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\drawing.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\src\\easyxC.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\src\\easyxC.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\src\\drawing.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\src\\drawing.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\header\\drawing.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -17,10 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\src\\util.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\src\\util.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\src\\easyxC.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\src\\easyxC.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\header\\types.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -48,7 +48,7 @@
               "RelativeDocumentMoniker": "Game\\src\\main.c",
               "ToolTip": "E:\\Project1\\Game\\src\\main.c",
               "RelativeToolTip": "Game\\src\\main.c",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAADoAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAEcAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-12-04T13:09:04.684Z",
               "IsPinned": true,
@@ -59,18 +59,27 @@
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d3750d8a-574b-4fb3-b7e2-aa8af40e8231}"
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "drawing.c",
+              "DocumentMoniker": "E:\\Project1\\Game\\src\\drawing.c",
+              "RelativeDocumentMoniker": "Game\\src\\drawing.c",
+              "ToolTip": "E:\\Project1\\Game\\src\\drawing.c",
+              "RelativeToolTip": "Game\\src\\drawing.c",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAADQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-12-04T16:57:53.061Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "drawing.h",
               "DocumentMoniker": "E:\\Project1\\Game\\header\\drawing.h",
               "RelativeDocumentMoniker": "Game\\header\\drawing.h",
               "ToolTip": "E:\\Project1\\Game\\header\\drawing.h",
               "RelativeToolTip": "Game\\header\\drawing.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-12-04T16:12:01.276Z",
               "EditorCaption": ""
@@ -85,12 +94,11 @@
               "RelativeToolTip": "Game\\header\\util.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-04T16:07:36.046Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T16:07:36.046Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "util.c",
               "DocumentMoniker": "E:\\Project1\\Game\\src\\util.c",
               "RelativeDocumentMoniker": "Game\\src\\util.c",
@@ -111,31 +119,17 @@
               "RelativeToolTip": "Game\\header\\types.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-04T15:56:50.27Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T15:56:50.27Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "drawing.c",
-              "DocumentMoniker": "E:\\Project1\\Game\\drawing.c",
-              "RelativeDocumentMoniker": "Game\\drawing.c",
-              "ToolTip": "E:\\Project1\\Game\\drawing.c",
-              "RelativeToolTip": "Game\\drawing.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-12-04T15:56:12.381Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "easyxC.cpp",
               "DocumentMoniker": "E:\\Project1\\Game\\src\\easyxC.cpp",
               "RelativeDocumentMoniker": "Game\\src\\easyxC.cpp",
               "ToolTip": "E:\\Project1\\Game\\src\\easyxC.cpp",
               "RelativeToolTip": "Game\\src\\easyxC.cpp",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-12-04T15:03:11.73Z",
               "EditorCaption": ""

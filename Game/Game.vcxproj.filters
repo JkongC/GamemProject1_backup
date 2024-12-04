@@ -21,10 +21,10 @@
     <ClCompile Include="src\main.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="drawing.c">
+    <ClCompile Include="src\util.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\util.c">
+    <ClCompile Include="src\drawing.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
