@@ -29,11 +29,14 @@ void loadimageC(IMAGEC* pDstImg, LPCTSTR pImgFile, int nWidth = 0, int nHeight =
 	imagec_list.push_back(pDstImg);
 }
 
-void loadimageCR(IMAGEC* pDstImg, LPCTSTR pResType, LPCTSTR pResName) {
+void loadimageCR(IMAGEC** pDstImg, LPCTSTR pResType, LPCTSTR pResName) {
+	*pDstImg = (IMAGEC*)malloc(sizeof(IMAGEC));
+	if (*pDstImg == NULL) DebugBreak();
+	
 	IMAGE* img = new IMAGE();
 	loadimage(img, pResType, pResName);
-	pDstImg->image = img;
-	imagec_list.push_back(pDstImg);
+	(*pDstImg)->image = img;
+	imagec_list.push_back(*pDstImg);
 }
 
 void putimageC(int dstX, int dstY, const IMAGEC* pSrcImg) {

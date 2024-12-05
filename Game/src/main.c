@@ -10,37 +10,30 @@
 #include "drawing.h"
 #include "util.h"
 
+AnimationList* Templates;
 AnimationList* Animations;
-Animation* peashooter;
+Animation* peashooter_template;
 
 int LoadResources() {
 	Animations = (AnimationList*)malloc(sizeof(AnimationList) + 15 * sizeof(Animation*));
 	if (Animations == NULL) return -1;
 	Animations->capacity = 15;
 	Animations->size = 0;
+
+	Templates = (AnimationList*)malloc(sizeof(AnimationList) + 10 * sizeof(Animation*));
+	if (Templates == NULL) return -1;
+	Templates->capacity = 15;
+	Templates->size = 0;
 	
-	peashooter = (Animation*)malloc(sizeof(Animation) + 9 * sizeof(IMAGEC));
-	if (peashooter == NULL) return -1;
-	peashooter->counter = 0;
-	peashooter->interval = 125;
-	peashooter->frame_index = 0;
-	peashooter->frame_amounts = 9;
-	peashooter->rc_head_index = 101;
-	peashooter->pos.x = 500;
-	peashooter->pos.y = 500;
-
-	for (int i = 0; i < 9; i++) {
-		loadimageCR(&peashooter->frames[i], _T("PNG"), peashooter->rc_head_index + i);
-	}
-
-	PushToList(&Animations, peashooter);
+	if (CreateAnimationTemplate(&Templates, &peashooter_template, 125, 9, 101) == -1) return -1;
 
 	return 0;
 }
 
 void FreeResources() {
-	clearimageC();
 	FreeList(Animations);
+	FreeList(Templates);
+	clearimageC();
 }
 
 //WIN32程序主函数
@@ -54,8 +47,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 	//例子，可以以已有Animation为模板，新建Animation
 	Animation* peashooter1;
 	Animation* peashooter2;
-	NewAnimationFrom(&Animations, &peashooter1, &peashooter, 400, 400);
-	NewAnimationFrom(&Animations, &peashooter2, &peashooter, 600, 600);
+	NewAnimationFrom(&Animations, &peashooter1, &peashooter_template, 400, 400);
+	NewAnimationFrom(&Animations, &peashooter2, &peashooter_template, 600, 600);
 
 	BeginBatchDrawC();
 	clock_t start = clock();

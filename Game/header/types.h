@@ -7,7 +7,7 @@ typedef struct ani {
 	int frame_index; //当前播放的帧索引
 	int rc_head_index; //图集在资源文件中的第一个索引（在resource.h中可以看到）
 	POINT pos; //动画的当前坐标
-	IMAGEC frames[];
+	IMAGEC* frames[];
 } Animation;
 
 typedef struct anilst {

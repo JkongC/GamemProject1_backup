@@ -51,7 +51,7 @@ extern "C"
 	void closegraphC();
 
 	void loadimageC(IMAGEC* pDstImg, LPCTSTR pImgFile, int nWidth, int nHeight);
-	void loadimageCR(IMAGEC* pDstImg, LPCTSTR pResType, LPCTSTR pResName);
+	void loadimageCR(IMAGEC** pDstImg, LPCTSTR pResType, LPCTSTR pResName);
 	void putimageC(int dstX, int dstY, const IMAGEC* pSrcImg);
 	void putimageCS(int dstX, int dstY, int dstWidth, int dstHeight, const IMAGEC* pSrcImg, int srcX, int srcY);
 	int imagec_getwidth(IMAGEC* pImg);
