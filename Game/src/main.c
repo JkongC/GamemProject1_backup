@@ -42,7 +42,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 
 	if (LoadResources() == -1) return -1;
 	
-	HWND hWnd = initgraphC(1280, 960);
+	HWND hWnd = initgraphC(1280, 960, EX_NOCLOSE);
+
+	int running = 1;
 
 	//例子，可以以已有Animation为模板，新建Animation
 	Animation* peashooter1;
@@ -55,6 +57,19 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 	
 	//游戏主循环
 	while (1) {
+		
+		ExMessageC msg;
+		memset(&msg, 0, sizeof(ExMessageC));
+
+		while (peekmessageC(&msg)) {
+			if (msg.message == WM_KEYDOWN) {
+				if (msg.vkcode == VK_ESCAPE) {
+					running = 0;
+					break;
+				}
+			}
+		}
+		
 		
 		RenderList(Animations); //绘出列表中所有的Animation
 
@@ -71,6 +86,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 		if (delta < 1000 / 144) {
 			Sleep(1000 / 144 - delta);
 		}
+
+		if (!running) break;
 	}
 	EndBatchDrawC();
 

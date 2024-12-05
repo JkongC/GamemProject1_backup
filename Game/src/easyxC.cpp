@@ -6,8 +6,8 @@
 
 std::vector<IMAGEC*> imagec_list;
 
-HWND initgraphC(int x, int y) {
-	return initgraph(x, y);
+HWND initgraphC(int x, int y, int flag) {
+	return initgraph(x, y, flag);
 }
 
 void closegraphC() {
@@ -145,6 +145,11 @@ int peekmessageC(ExMessageC* msg) {
 	}
 	bool ret = peekmessage((ExMessage*)msg->ExMessage);
 	msg->message = ((ExMessage*)msg->ExMessage)->message;
+
+	if (msg->message == WM_KEYDOWN) {
+		msg->vkcode = ((ExMessage*)msg->ExMessage)->vkcode;
+	}
+
 	return ret;
 }
 

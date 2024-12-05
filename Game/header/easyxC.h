@@ -5,6 +5,7 @@ extern "C"
 {
 #endif
 
+#define EX_NORMAL 0
 #define EX_SHOWCONSOLE		1		// Maintain the console window when creating a graphics window
 #define EX_NOCLOSE			2		// Disable the close button
 #define EX_NOMINIMIZE		4		// Disable the minimize button
@@ -45,9 +46,10 @@ extern "C"
 	typedef struct ExMessageX {
 		void* ExMessage;
 		unsigned short message;
+		BYTE vkcode;
 	} ExMessageC;
 
-	HWND initgraphC(int x, int y);
+	HWND initgraphC(int x, int y, int flag);
 	void closegraphC();
 
 	void loadimageC(IMAGEC* pDstImg, LPCTSTR pImgFile, int nWidth, int nHeight);
