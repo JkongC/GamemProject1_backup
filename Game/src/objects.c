@@ -89,8 +89,9 @@ void FreeObjects(ListWithID* obj_list) {
 	FreeNodeList(&obj_list->list);
 }
 
-void FreeObjectRegistry(Registry registry) {
-	IterateNodeList(&registry.list, FreeObjectAnimation);
+void FreeObjectRegistry(Registry* registry) {
+	IterateNodeList(&registry->list, FreeObjectAnimation);
+	FreeObjects(registry);
 }
 
 int FreeObjectAnimation(Node* obj) {
