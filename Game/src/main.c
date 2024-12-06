@@ -24,15 +24,13 @@ int LoadResources() {
 	if (Templates == NULL) return -1;
 	Templates->capacity = 15;
 	Templates->size = 0;
-	
-	if (CreateAnimationTemplate(&Templates, &peashooter_template, 125, 9, 101) == -1) return -1;
 
 	return 0;
 }
 
 void FreeResources() {
-	FreeList(Animations);
-	FreeList(Templates);
+	FreeAnimationList(Animations);
+	FreeAnimationList(Templates);
 	clearimageC();
 }
 
@@ -46,12 +44,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 
 	int running = 1;
 
-	//例子，可以以已有Animation为模板，新建Animation
-	Animation* peashooter1;
-	Animation* peashooter2;
-	NewAnimationFrom(&Animations, &peashooter1, &peashooter_template, 400, 400);
-	NewAnimationFrom(&Animations, &peashooter2, &peashooter_template, 600, 600);
-
 	BeginBatchDrawC();
 	clock_t start = clock();
 	
@@ -61,7 +53,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 		ExMessageC msg;
 		memset(&msg, 0, sizeof(ExMessageC));
 
-		while (peekmessageC(&msg)) {
+		while (peekmessageC(&msg, EX_ALL)) {
 			if (msg.message == WM_KEYDOWN) {
 				if (msg.vkcode == VK_ESCAPE) {
 					running = 0;
@@ -71,7 +63,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 		}
 		
 		
-		RenderList(Animations); //绘出列表中所有的Animation
+		RenderAnimationList(Animations); //绘出列表中所有的Animation
 
 		FlushBatchDrawC();
 
@@ -80,7 +72,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 		clock_t delta = end - start;
 		start = end;
 		
-		UpdateList(Animations, delta); //尝试更新列表中所有Animation的帧
+		UpdateAnimationList(Animations, delta); //尝试更新列表中所有Animation的帧
 
 		//控制FPS
 		if (delta < 1000 / 144) {

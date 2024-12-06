@@ -1,5 +1,10 @@
 #pragma once
 
+#ifndef __cplusplus
+#include <stdbool.h>
+#endif
+
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -11,6 +16,7 @@ extern "C"
 #define EX_NOMINIMIZE		4		// Disable the minimize button
 #define EX_DBLCLKS			8		// Support double-click events
 
+#define EX_ALL -1
 #define EX_MOUSE	1
 #define EX_KEY		2
 #define EX_CHAR		4
@@ -46,7 +52,41 @@ extern "C"
 	typedef struct ExMessageX {
 		void* ExMessage;
 		unsigned short message;
-		BYTE vkcode;
+		
+		union
+		{
+			// Data of the mouse message
+			struct
+			{
+				bool ctrl : 1;		// Indicates whether the CTRL key is pressed
+				bool shift : 1;		// Indicates whether the SHIFT key is pressed
+				bool lbutton : 1;		// Indicates whether the left mouse button is pressed
+				bool mbutton : 1;		// Indicates whether the middle mouse button is pressed
+				bool rbutton : 1;		// Indicates whether the right mouse button is pressed
+				short x;				// The x-coordinate of the cursor
+				short y;				// The y-coordinate of the cursor
+				short wheel;			// The distance the wheel is rotated, expressed in multiples or divisions of 120
+			};
+
+			// Data of the key message
+			struct
+			{
+				BYTE vkcode;			// The virtual-key code of the key
+				BYTE scancode;			// The scan code of the key. The value depends on the OEM
+				bool extended : 1;		// Indicates whether the key is an extended key, such as a function key or a key on the numeric keypad. The value is true if the key is an extended key; otherwise, it is false.
+				bool prevdown : 1;		// Indicates whether the key is previously up or down
+			};
+
+			// Data of the char message
+			TCHAR ch;
+
+			// Data of the window message
+			struct
+			{
+				WPARAM wParam;
+				LPARAM lParam;
+			};
+		};
 	} ExMessageC;
 
 	HWND initgraphC(int x, int y, int flag);
@@ -78,7 +118,7 @@ extern "C"
 	void outtextxyC(int x, int y, TCHAR c);
 	void outtextxyCS(int x, int y, LPCTSTR str);
 
-	int peekmessageC(ExMessageC* msg);
+	int peekmessageC(ExMessageC* msg, BYTE filter);
 	void flushmessageC();
 	void setcaptureC();
 	void releasecaptureC();

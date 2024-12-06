@@ -1,13 +1,15 @@
 #pragma once
 
-int CreateAnimationTemplate(AnimationList** templates, Animation** new_ani, int interval, int frame_amounts, int rc_head_index);
+int CreateAnimationTemplate(AnimationList** templates, Animation** new_ani, int interval, int frame_amounts, POINT atlas_position, IMAGEC* atlas, int width, int height);
 
 int NewAnimationFrom(AnimationList** ani_list, Animation** dst, Animation** src, long newX, long newY);
 
 int RemoveAnimation(AnimationList** ani_list, Animation* todel);
 
-void Render(Animation* animation);
+void RenderAnimation(Animation* animation);
 
-void RenderList(AnimationList* ani_list);
+void RenderObjectAnimation(Animation* animation);
 
-void UpdateList(AnimationList* ani_list, clock_t delta);
+void RenderAnimationList(AnimationList* ani_list);
+
+void UpdateAnimationList(AnimationList* ani_list, clock_t delta);

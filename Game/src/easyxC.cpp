@@ -138,16 +138,60 @@ HWND GetHWndC() {
 	return GetHWnd();
 }
 
-int peekmessageC(ExMessageC* msg) {
+int peekmessageC(ExMessageC* msg, BYTE filter) {
+	static ExMessage exmsg;
 	if (msg->ExMessage == NULL) {
-		static ExMessage exmsg;
 		msg->ExMessage = &exmsg;
 	}
 	bool ret = peekmessage((ExMessage*)msg->ExMessage);
 	msg->message = ((ExMessage*)msg->ExMessage)->message;
 
-	if (msg->message == WM_KEYDOWN) {
-		msg->vkcode = ((ExMessage*)msg->ExMessage)->vkcode;
+	switch (msg->message) {
+		case WM_MOUSEMOVE:
+		case WM_MOUSEWHEEL:
+		case WM_LBUTTONDOWN:
+		case WM_LBUTTONUP:
+		case WM_LBUTTONDBLCLK:
+		case WM_MBUTTONDOWN:
+		case WM_MBUTTONUP:
+		case WM_MBUTTONDBLCLK:
+		case WM_RBUTTONDOWN:
+		case WM_RBUTTONUP:
+		case WM_RBUTTONDBLCLK:
+			msg->ctrl = exmsg.ctrl;
+			msg->shift = exmsg.shift;
+			msg->lbutton = exmsg.lbutton;
+			msg->mbutton = exmsg.mbutton;
+			msg->rbutton = exmsg.rbutton;
+			msg->x = exmsg.x;
+			msg->y = exmsg.y;
+			msg->wheel = exmsg.wheel;
+
+			break;
+
+		case WM_KEYDOWN:
+		case WM_KEYUP:
+			msg->vkcode = exmsg.vkcode;
+			msg->scancode = exmsg.scancode;
+			msg->extended = exmsg.extended;
+			msg->prevdown = exmsg.prevdown;
+
+			break;
+
+		case WM_CHAR:
+			msg->ch = exmsg.ch;
+
+			break;
+
+		case WM_ACTIVATE:
+		case WM_MOVE:
+		case WM_SIZE:
+			msg->wParam = exmsg.wParam;
+			msg->lParam = exmsg.lParam;
+
+			break;
+
+		default: break;
 	}
 
 	return ret;

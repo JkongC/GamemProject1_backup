@@ -1,0 +1,55 @@
+//type
+#define OBJ_NORMAL 1
+#define OBJ_MOVABLE 2
+
+#define LIFE_INF -1
+
+//不应该被直接创建，用NewObject然后强转
+typedef struct obj {
+	int ID;
+	int type;
+	int life;
+	bool show;
+	POINT pos;
+	Animation* animation;
+} Object;
+
+//不应该被直接创建，用NewObject然后强转
+typedef struct movobj {
+	Object;
+	int counter;
+	float velocity_X;
+	float velocity_Y;
+	float acceleration;
+} MovableObject;
+
+/*
+typedef struct apple {
+	Object;
+	int color;
+} Apple;
+*/
+
+int DistributeID(ListWithID* obj_list);
+
+int RegisterObject(Registry* registry, void* object_template, int type, int life, Animation** ani);
+
+void FreeObjects(ListWithID* obj_list);
+
+void FreeObjectRegistry(Registry registry);
+
+int FreeObjectAnimation(Node* obj);
+
+
+
+void* NewObject(ListWithID* obj_list, Registry* template_list, const int src);
+
+void* SearchObject(ListWithID* obj_list, const int ID);
+
+void RemoveObjectByID(ListWithID* obj_list, const int ID);
+
+void RemoveObject(ListWithID* obj_list, void* object);
+
+void RenderObject(void* object);
+
+int RenderObjectFromNode(Node* node);
