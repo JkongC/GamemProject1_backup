@@ -4,7 +4,7 @@
 #include "easyxC.h"
 #include "types.h"
 #include "util.h"
-#include "drawing.h"
+#include "animation.h"
 #include "objects.h"
 
 int DistributeID(ListWithID* obj_list) {
@@ -25,7 +25,7 @@ int DistributeID(ListWithID* obj_list) {
 	return -1;
 }
 
-int RegisterObject(Registry* registry, void* object_template, int type, int life, Animation** ani) {
+int RegisterObject(Registry* registry, int type, int life, Animation** ani) {
 	int new_ID = DistributeID(registry);
 	
 	void* new_object;
@@ -176,6 +176,7 @@ void RemoveObjectByID(ListWithID* obj_list, const int ID) {
 	Node* res = SearchListNode(&obj_list->list, ID);
 	if (res == NULL) return;
 
+	free(((Object*)(res->object))->animation);
 	RemoveFromNodeList(&obj_list->list, res);
 }
 
@@ -185,10 +186,36 @@ void RemoveObject(ListWithID* obj_list, void* object) {
 
 void RenderObject(void* object) {
 	Object* obj = (Object*)object;
+	obj->animation->pos.x = obj->pos.x;
+	obj->animation->pos.y = obj->pos.y;
 	RenderAnimation(obj->animation);
 }
 
 int RenderObjectFromNode(Node* node) {
 	RenderObject(node->object);
 	return 0;
+}
+
+void UpdateObject(void* object, clock_t delta) {
+	Object* obj = (Object*)object;
+	UpdateAnimation(obj->animation, delta);
+}
+
+int UpdateObjectFromNode(Node* node, clock_t delta) {
+	UpdateObject(node->object, delta);
+	return 0;
+}
+
+void RenderObjectList(ListWithID* obj_list) {
+	IterateNodeList(obj_list->list, RenderObjectFromNode);
+}
+
+void UpdateObjectList(ListWithID* obj_list, clock_t delta) {
+	if (obj_list->list == NULL) return;
+	Node* cur = obj_list->list;
+
+	while (cur != NULL) {
+		UpdateObjectFromNode(cur, delta);
+		cur = cur->next;
+	}
 }

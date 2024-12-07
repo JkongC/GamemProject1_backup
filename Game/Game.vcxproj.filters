@@ -24,7 +24,7 @@
     <ClCompile Include="src\util.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\drawing.c">
+    <ClCompile Include="src\animation.c">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\objects.c">
@@ -41,7 +41,7 @@
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="header\drawing.h">
+    <ClInclude Include="header\animation.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="header\util.h">

@@ -7,12 +7,22 @@
 #include <ShellScalingApi.h>
 #include "easyxC.h"
 #include "types.h"
-#include "drawing.h"
+#include "animation.h"
 #include "util.h"
+#include "objects.h"
+#include "resource.h"
 
-AnimationList* Templates;
+AnimationList* Templates_Animation;
 AnimationList* Animations;
-Animation* peashooter_template;
+
+Animation* peashooter_idle_1;
+
+
+Registry Templates_Object;
+ListWithID Objects;
+
+int peashooter;
+
 
 int LoadResources() {
 	Animations = (AnimationList*)malloc(sizeof(AnimationList) + 15 * sizeof(Animation*));
@@ -20,17 +30,23 @@ int LoadResources() {
 	Animations->capacity = 15;
 	Animations->size = 0;
 
-	Templates = (AnimationList*)malloc(sizeof(AnimationList) + 10 * sizeof(Animation*));
-	if (Templates == NULL) return -1;
-	Templates->capacity = 15;
-	Templates->size = 0;
+	Templates_Animation = (AnimationList*)malloc(sizeof(AnimationList) + 10 * sizeof(Animation*));
+	if (Templates_Animation == NULL) return -1;
+	Templates_Animation->capacity = 15;
+	Templates_Animation->size = 0;
+	
+	CreateAnimationTemplate(&Templates_Animation, &peashooter_idle_1, 0, 1, 0, 0, IDB_PNG1, 96, 96);
+	
+	peashooter = RegisterObject(&Templates_Object, OBJ_NORMAL, LIFE_INF, &peashooter_idle_1);
 
 	return 0;
 }
 
 void FreeResources() {
 	FreeAnimationList(Animations);
-	FreeAnimationList(Templates);
+	FreeAnimationList(Templates_Animation);
+	FreeObjectRegistry(&Templates_Object);
+	FreeObjects(&Objects);
 	clearimageC();
 }
 
@@ -46,6 +62,10 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 
 	BeginBatchDrawC();
 	clock_t start = clock();
+
+	Object* ps1 = NewObject(&Objects, &Templates_Object, peashooter);
+	ps1->pos.x = 200;
+	ps1->pos.y = 200;
 	
 	//游戏主循环
 	while (1) {
@@ -62,8 +82,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 			}
 		}
 		
-		
 		RenderAnimationList(Animations); //绘出列表中所有的Animation
+
+		RenderObject(ps1);
 
 		FlushBatchDrawC();
 
@@ -72,6 +93,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 		clock_t delta = end - start;
 		start = end;
 		
+		UpdateObjectList(&Objects, delta);
 		UpdateAnimationList(Animations, delta); //尝试更新列表中所有Animation的帧
 
 		//控制FPS

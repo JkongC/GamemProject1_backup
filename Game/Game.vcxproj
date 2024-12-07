@@ -19,14 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\drawing.c" />
+    <ClCompile Include="src\animation.c" />
     <ClCompile Include="src\easyxC.cpp" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\objects.c" />
     <ClCompile Include="src\util.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\drawing.h" />
+    <ClInclude Include="header\animation.h" />
     <ClInclude Include="header\easyxC.h" />
     <ClInclude Include="header\objects.h" />
     <ClInclude Include="header\types.h" />
@@ -101,7 +101,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <IncludePath>$(MSBuildProjectDirectory)\header;$(IncludePath)</IncludePath>
+    <IncludePath>$(MSBuildProjectDirectory)\header;$(MSBuildProjectDirectory);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

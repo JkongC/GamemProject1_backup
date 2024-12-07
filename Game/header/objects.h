@@ -32,11 +32,11 @@ typedef struct apple {
 
 int DistributeID(ListWithID* obj_list);
 
-int RegisterObject(Registry* registry, void* object_template, int type, int life, Animation** ani);
+int RegisterObject(Registry* registry, int type, int life, Animation** ani);
 
 void FreeObjects(ListWithID* obj_list);
 
-void FreeObjectRegistry(Registry registry);
+void FreeObjectRegistry(Registry* registry);
 
 int FreeObjectAnimation(Node* obj);
 
@@ -53,3 +53,13 @@ void RemoveObject(ListWithID* obj_list, void* object);
 void RenderObject(void* object);
 
 int RenderObjectFromNode(Node* node);
+
+void UpdateObject(void* object, clock_t delta);
+
+int UpdateObjectFromNode(Node* node, clock_t delta);
+
+
+
+void RenderObjectList(ListWithID* obj_list);
+
+void UpdateObjectList(ListWithID* obj_list, clock_t delta);

@@ -19,7 +19,7 @@ int RemoveIDFromList(ListWithID* obj_list, const int ID);
 
 int RemoveFromNodeList(Node** head, Node* to_del);
 
-//使用的回调函数不能对结点进行删除或更改操作，即没有副作用
+//使用的回调函数不能对结点本身进行删除操作，也不能更改其former和next指针，ID和object可以谨慎地更改
 int IterateNodeList(Node** head, int (*callback)(Node* obj));
 
 //调用时，请确保该链表不会再用到

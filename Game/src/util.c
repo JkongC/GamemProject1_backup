@@ -30,6 +30,7 @@ int RemoveFromAnimationList(AnimationList** ani_list, Animation* ani) {
 			a_list->list[i] = a_list->list[a_list->size - 1];
 			a_list->size--;
 
+			free(ani);
 			found = 1;
 			break;
 		}
@@ -137,7 +138,7 @@ int RemoveFromNodeList(Node** head, Node* to_del) {
 	return -2;
 }
 
-//使用的回调函数不能对结点进行删除或更改操作
+//使用的回调函数不能对结点进行删除或更改操作，只能对object进行操作
 int IterateNodeList(Node** head, int (*callback)(Node* obj)) {
 	if (*head == NULL) return -1;
 	Node* cur = *head;
