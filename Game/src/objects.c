@@ -3,9 +3,9 @@
 #include <time.h>
 #include "easyxC.h"
 #include "types.h"
-#include "util.h"
 #include "animation.h"
 #include "objects.h"
+#include "util.h"
 
 int DistributeID(ListWithID* obj_list) {
 	for (int i = 1; i <= 63; i++) {
@@ -25,7 +25,7 @@ int DistributeID(ListWithID* obj_list) {
 	return -1;
 }
 
-int RegisterObject(Registry* registry, int type, int life, Animation** ani) {
+ObjTemplate RegisterObject(Registry* registry, int type, int life, Animation** ani) {
 	int new_ID = DistributeID(registry);
 	
 	void* new_object;
@@ -43,6 +43,8 @@ int RegisterObject(Registry* registry, int type, int life, Animation** ani) {
 		new_obj->animation = *ani;
 		new_obj->ID = new_ID;
 		new_obj->show = false;
+		new_obj->ani_counter = 0;
+		new_obj->ani_frameidx = 0;
 
 		new_node = CreateNewNode(new_object);
 		if (new_node == NULL) {
@@ -50,8 +52,6 @@ int RegisterObject(Registry* registry, int type, int life, Animation** ani) {
 			return -1;
 		}
 		new_node->ID = new_ID;
-
-		NewAnimationFrom(NULL, &new_obj->animation, ani, 0, 0);
 
 		AddToNodeList(&registry->list, new_node);
 
@@ -67,6 +67,8 @@ int RegisterObject(Registry* registry, int type, int life, Animation** ani) {
 		new_objM->animation = *ani;
 		new_objM->ID = new_ID;
 		new_objM->show = false;
+		new_objM->ani_counter = 0;
+		new_objM->ani_frameidx = 0;
 
 		new_node = CreateNewNode(new_object);
 		if (new_node == NULL) {
@@ -74,8 +76,6 @@ int RegisterObject(Registry* registry, int type, int life, Animation** ani) {
 			return -1;
 		}
 		new_node->ID = new_ID;
-
-		NewAnimationFrom(NULL, &new_objM->animation, ani, 0, 0);
 
 		AddToNodeList(&registry->list, new_node);
 
@@ -90,17 +90,11 @@ void FreeObjects(ListWithID* obj_list) {
 }
 
 void FreeObjectRegistry(Registry* registry) {
-	IterateNodeList(&registry->list, FreeObjectAnimation);
 	FreeObjects(registry);
 }
 
-int FreeObjectAnimation(Node* obj) {
-	free(((Object*)(obj->object))->animation);
-	return 0;
-}
-
-void* NewObject(ListWithID* obj_list, Registry* template_list, const int src) {
-	Object* src_obj = (Object*)SearchObject(template_list, src);
+void* NewObject(ListWithID* obj_list, Registry* template_list, ObjTemplate obj_template) {
+	Object* src_obj = (Object*)SearchObject(template_list, obj_template);
 	if (src_obj == NULL) return NULL;
 
 	int new_ID = DistributeID(obj_list);
@@ -123,6 +117,8 @@ void* NewObject(ListWithID* obj_list, Registry* template_list, const int src) {
 		new_obj->ID = new_ID;
 		new_obj->show = true;
 		new_obj->pos = origin;
+		new_obj->ani_counter = 0;
+		new_obj->ani_frameidx = 0;
 
 		new_node = CreateNewNode(new_object);
 		if (new_node == NULL) return NULL;
@@ -150,6 +146,8 @@ void* NewObject(ListWithID* obj_list, Registry* template_list, const int src) {
 		new_objM->acceleration = 0;
 		new_objM->velocity_X = 0;
 		new_objM->velocity_Y = 0;
+		new_objM->ani_counter = 0;
+		new_objM->ani_frameidx = 0;
 
 		new_node = CreateNewNode(new_object);
 		if (new_node == NULL) return NULL;
@@ -186,9 +184,14 @@ void RemoveObject(ListWithID* obj_list, void* object) {
 
 void RenderObject(void* object) {
 	Object* obj = (Object*)object;
-	obj->animation->pos.x = obj->pos.x;
-	obj->animation->pos.y = obj->pos.y;
-	RenderAnimation(obj->animation);
+
+	if (obj->ani_counter >= obj->animation->interval) {
+		obj->ani_counter = 0;
+		obj->ani_frameidx++;
+		obj->ani_frameidx %= obj->animation->frame_amounts;
+	}
+
+	RenderAnimation(obj->animation, obj->ani_frameidx, obj->pos.x, obj->pos.y);
 }
 
 int RenderObjectFromNode(Node* node) {
@@ -198,7 +201,7 @@ int RenderObjectFromNode(Node* node) {
 
 void UpdateObject(void* object, clock_t delta) {
 	Object* obj = (Object*)object;
-	UpdateAnimation(obj->animation, delta);
+	obj->ani_counter += delta;
 }
 
 int UpdateObjectFromNode(Node* node, clock_t delta) {
@@ -207,7 +210,7 @@ int UpdateObjectFromNode(Node* node, clock_t delta) {
 }
 
 void RenderObjectList(ListWithID* obj_list) {
-	IterateNodeList(obj_list->list, RenderObjectFromNode);
+	IterateNodeList(&obj_list->list, RenderObjectFromNode);
 }
 
 void UpdateObjectList(ListWithID* obj_list, clock_t delta) {

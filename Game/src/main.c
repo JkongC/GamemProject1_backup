@@ -13,37 +13,34 @@
 #include "resource.h"
 
 AnimationList* Templates_Animation;
-AnimationList* Animations;
-
 Animation* peashooter_idle_1;
+Animation* walk;
 
 
 Registry Templates_Object;
 ListWithID Objects;
 
-int peashooter;
-
+ObjTemplate peashooter;
+ObjTemplate ltman;
 
 int LoadResources() {
-	Animations = (AnimationList*)malloc(sizeof(AnimationList) + 15 * sizeof(Animation*));
-	if (Animations == NULL) return -1;
-	Animations->capacity = 15;
-	Animations->size = 0;
-
 	Templates_Animation = (AnimationList*)malloc(sizeof(AnimationList) + 10 * sizeof(Animation*));
 	if (Templates_Animation == NULL) return -1;
 	Templates_Animation->capacity = 15;
 	Templates_Animation->size = 0;
+
+	InitializeListWithID(&Objects);
 	
-	CreateAnimationTemplate(&Templates_Animation, &peashooter_idle_1, 0, 1, 0, 0, IDB_PNG1, 96, 96);
+	CreateAnimationTemplate(&Templates_Animation, &peashooter_idle_1, 0, 1, 0, 0, IDB_PNG1, 96, 96, 1);
+	CreateAnimationTemplate(&Templates_Animation, &walk, 200, 4, 0, 0, RC_TEST, 15, 17, 4);
 	
 	peashooter = RegisterObject(&Templates_Object, OBJ_NORMAL, LIFE_INF, &peashooter_idle_1);
+	ltman = RegisterObject(&Templates_Object, OBJ_NORMAL, LIFE_INF, &walk);
 
 	return 0;
 }
 
 void FreeResources() {
-	FreeAnimationList(Animations);
 	FreeAnimationList(Templates_Animation);
 	FreeObjectRegistry(&Templates_Object);
 	FreeObjects(&Objects);
@@ -66,6 +63,14 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 	Object* ps1 = NewObject(&Objects, &Templates_Object, peashooter);
 	ps1->pos.x = 200;
 	ps1->pos.y = 200;
+
+	Object* littleman = NewObject(&Objects, &Templates_Object, ltman);
+	littleman->pos.x = 500;
+	littleman->pos.y = 500;
+
+	Object* littleman_copy = NewObject(&Objects, &Templates_Object, ltman);
+	littleman_copy->pos.x = 700;
+	littleman_copy->pos.y = 700;
 	
 	//游戏主循环
 	while (1) {
@@ -81,10 +86,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 				}
 			}
 		}
-		
-		RenderAnimationList(Animations); //绘出列表中所有的Animation
 
-		RenderObject(ps1);
+		RenderObjectList(&Objects);
 
 		FlushBatchDrawC();
 
@@ -94,7 +97,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 		start = end;
 		
 		UpdateObjectList(&Objects, delta);
-		UpdateAnimationList(Animations, delta); //尝试更新列表中所有Animation的帧
 
 		//控制FPS
 		if (delta < 1000 / 144) {

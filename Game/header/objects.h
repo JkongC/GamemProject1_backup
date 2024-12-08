@@ -12,6 +12,8 @@ typedef struct obj {
 	bool show;
 	POINT pos;
 	Animation* animation;
+	clock_t ani_counter;
+	int ani_frameidx;
 } Object;
 
 //不应该被直接创建，用NewObject然后强转
@@ -32,17 +34,15 @@ typedef struct apple {
 
 int DistributeID(ListWithID* obj_list);
 
-int RegisterObject(Registry* registry, int type, int life, Animation** ani);
+ObjTemplate RegisterObject(Registry* registry, int type, int life, Animation** ani);
 
 void FreeObjects(ListWithID* obj_list);
 
 void FreeObjectRegistry(Registry* registry);
 
-int FreeObjectAnimation(Node* obj);
 
 
-
-void* NewObject(ListWithID* obj_list, Registry* template_list, const int src);
+void* NewObject(ListWithID* obj_list, Registry* template_list, ObjTemplate src);
 
 void* SearchObject(ListWithID* obj_list, const int ID);
 

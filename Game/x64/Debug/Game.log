@@ -1,2 +1,6 @@
-﻿  main.c
+﻿  animation.c
+  main.c
+  objects.c
+  util.c
+  正在生成代码...
   Game.vcxproj -> E:\Project1\x64\Debug\Game.exe

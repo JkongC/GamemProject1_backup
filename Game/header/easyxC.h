@@ -92,8 +92,9 @@ extern "C"
 	HWND initgraphC(int x, int y, int flag);
 	void closegraphC();
 
-	void loadimageC(IMAGEC* pDstImg, LPCTSTR pImgFile, int nWidth, int nHeight);
-	void loadimageCR(IMAGEC** pDstImg, LPCTSTR pResType, LPCTSTR pResName);
+	IMAGEC* newimageC(int nWidth, int nHeight);
+	void loadimageC(IMAGEC** pDstImg, LPCTSTR pImgFile, int nWidth, int nHeight, bool bResize);
+	void loadimageCR(IMAGEC** pDstImg, LPCTSTR pResType, LPCTSTR pResName, int nWidth, int nHeight, bool bResize);
 	void putimageC(int dstX, int dstY, const IMAGEC* pSrcImg);
 	void putimageCS(int dstX, int dstY, int dstWidth, int dstHeight, const IMAGEC* pSrcImg, int srcX, int srcY);
 	int imagec_getwidth(IMAGEC* pImg);

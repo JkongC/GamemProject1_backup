@@ -22,19 +22,33 @@ void outtextxyCS(int x, int y, LPCTSTR str) {
 	outtextxy(x, y, str);
 }
 
-void loadimageC(IMAGEC* pDstImg, LPCTSTR pImgFile, int nWidth = 0, int nHeight = 0) {
-	IMAGE* img = new IMAGE();
-	loadimage(img, pImgFile, nWidth, nHeight);
-	pDstImg->image = img;
-	imagec_list.push_back(pDstImg);
+IMAGEC* newimageC(int nWidth, int nHeight) {
+	IMAGE* img = new IMAGE(nWidth, nHeight);
+	IMAGEC* new_imgC = (IMAGEC*)malloc(sizeof(IMAGEC));
+	if (new_imgC == NULL) return NULL;
+
+	new_imgC->image = img;
+	imagec_list.push_back(new_imgC);
+
+	return new_imgC;
 }
 
-void loadimageCR(IMAGEC** pDstImg, LPCTSTR pResType, LPCTSTR pResName) {
+void loadimageC(IMAGEC** pDstImg, LPCTSTR pImgFile, int nWidth = 0, int nHeight = 0, bool bResize = false) {
 	*pDstImg = (IMAGEC*)malloc(sizeof(IMAGEC));
-	if (*pDstImg == NULL) DebugBreak();
+	if (*pDstImg == NULL) return;
 	
-	IMAGE* img = new IMAGE();
-	loadimage(img, pResType, pResName);
+	IMAGE* img = new IMAGE(nWidth, nHeight);
+	loadimage(img, pImgFile, nWidth, nHeight, bResize);
+	(*pDstImg)->image = img;
+	imagec_list.push_back(*pDstImg);
+}
+
+void loadimageCR(IMAGEC** pDstImg, LPCTSTR pResType, LPCTSTR pResName, int nWidth = 0, int nHeight = 0, bool bResize = false) {
+	*pDstImg = (IMAGEC*)malloc(sizeof(IMAGEC));
+	if (*pDstImg == NULL) return;
+	
+	IMAGE* img = new IMAGE(nWidth, nHeight);
+	loadimage(img, pResType, pResName, nWidth, nHeight, bResize);
 	(*pDstImg)->image = img;
 	imagec_list.push_back(*pDstImg);
 }

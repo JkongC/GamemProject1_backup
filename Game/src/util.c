@@ -2,6 +2,7 @@
 #include <tchar.h>
 #include "easyxC.h"
 #include "types.h"
+#include "animation.h"
 #include "util.h"
 
 int PushToAnimationList(AnimationList** ani_list, Animation* ani) {
@@ -47,6 +48,9 @@ void FreeAnimationList(AnimationList* ani_list) {
 	free(ani_list);
 }
 
+void InitializeListWithID(ListWithID* empty_list) {
+	memset(empty_list, 0, sizeof(ListWithID));
+}
 
 Node* ToLastNode(Node** head) {
 	if (*head == NULL) return NULL;
@@ -164,4 +168,27 @@ void FreeNodeList(Node** head) {
 	}
 
 	*head = NULL;
+}
+
+//请确保dst已经使用newimageC函数按照正确的缩放大小创建好，否则可能导致访问越界
+void ScalingByPixel(IMAGEC* dst, IMAGEC* src, int scale) {
+	DWORD* dst_buffer = GetImageBufferC(dst);
+	DWORD* src_buffer = GetImageBufferC(src);
+
+	int src_w = imagec_getwidth(src);
+	int src_h = imagec_getheight(src);
+	int dst_w = imagec_getwidth(dst);
+
+	for (int i = 0; i < src_h; i++) {
+		for (int j = 0; j < src_w; j++) {
+			int dst_x = j * scale;
+			int dst_y = i * scale;
+
+			for (int sub_X = 0; sub_X < scale; sub_X++) {
+				for (int sub_Y = 0; sub_Y < scale; sub_Y++) {
+					dst_buffer[dst_x + (dst_y + sub_Y) * dst_w + sub_X] = src_buffer[j + i * src_w];
+				}
+			}
+		}
+	}
 }

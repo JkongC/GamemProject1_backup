@@ -6,6 +6,8 @@ int RemoveFromAnimationList(AnimationList** ani_list, Animation* ani);
 
 void FreeAnimationList(AnimationList* ani_list);
 
+void InitializeListWithID(ListWithID* empty_list);
+
 
 Node* ToLastNode(Node** head);
 
@@ -24,4 +26,7 @@ int IterateNodeList(Node** head, int (*callback)(Node* obj));
 
 //调用时，请确保该链表不会再用到
 void FreeNodeList(Node** head);
+
+
+void ScalingByPixel(IMAGEC* dst, IMAGEC* src, int scale);
 

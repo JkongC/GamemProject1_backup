@@ -46,6 +46,7 @@
     <Image Include="resources\peashooter_idle_7.png" />
     <Image Include="resources\peashooter_idle_8.png" />
     <Image Include="resources\peashooter_idle_9.png" />
+    <Image Include="resources\test.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
