@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include <tchar.h>
 #include <time.h>
+#include <stdarg.h>
 #include "easyxC.h"
 #include "types.h"
 #include "animation.h"
@@ -25,63 +26,73 @@ int DistributeID(ListWithID* obj_list) {
 	return -1;
 }
 
-ObjTemplate RegisterObject(Registry* registry, int type, int life, Animation** ani) {
+ObjTemplate RegisterObject(Registry* registry, int type, int life, int ani_sets, Animation* ani_1, ...) {
+	
+	va_list vars;
+	va_start(vars, ani_1);
+	
 	int new_ID = DistributeID(registry);
 	
 	void* new_object;
 	Node* new_node;
 
-	switch (type)
-	{
-	case OBJ_NORMAL:
-		new_object = malloc(sizeof(Object));
-		if (new_object == NULL) return -1;
-
-		Object* new_obj = (Object*)new_object;
-		new_obj->type = OBJ_NORMAL;
-		new_obj->life = life;
-		new_obj->animation = *ani;
-		new_obj->ID = new_ID;
-		new_obj->show = false;
-		new_obj->ani_counter = 0;
-		new_obj->ani_frameidx = 0;
-
-		new_node = CreateNewNode(new_object);
-		if (new_node == NULL) {
-			free(new_object);
-			return -1;
-		}
-		new_node->ID = new_ID;
-
-		AddToNodeList(&registry->list, new_node);
-
-		break;
-
-	case OBJ_MOVABLE:
+	if (type == OBJ_MOVABLE) {
 		new_object = malloc(sizeof(MovableObject));
-		if (new_object == NULL) return -1;
-
-		MovableObject* new_objM = (MovableObject*)new_object;
-		new_objM->type = OBJ_MOVABLE;
-		new_objM->life = life;
-		new_objM->animation = *ani;
-		new_objM->ID = new_ID;
-		new_objM->show = false;
-		new_objM->ani_counter = 0;
-		new_objM->ani_frameidx = 0;
-
-		new_node = CreateNewNode(new_object);
-		if (new_node == NULL) {
-			free(new_object);
-			return -1;
-		}
-		new_node->ID = new_ID;
-
-		AddToNodeList(&registry->list, new_node);
-
-		break;
+	}
+	else {
+		new_object = malloc(sizeof(MovableObject));
+	}
+	if (new_object == NULL) {
+		va_end(vars);
+		return -1;
 	}
 
+	Object* new_obj = (Object*)new_object;
+	if (InitializeAnimationList(&new_obj->animation) == -1) {
+		free(new_obj);
+		va_end(vars);
+		return -1;
+	}
+
+	new_obj->type = OBJ_NORMAL;
+	new_obj->life = life;
+	new_obj->ID = new_ID;
+	new_obj->show = false;
+	new_obj->pos.x = 0;
+	new_obj->pos.y = 0;
+	new_obj->ani_sets = ani_sets;
+	new_obj->ani_counter = 0;
+	new_obj->ani_frameidx = 0;
+	new_obj->current_ani_set_idx = 0;
+	PushToAnimationList(&new_obj->animation, ani_1);
+
+	for (int i = 0; i < ani_sets - 1; i++) {
+		Animation* sub_ani = va_arg(vars, Animation*);
+		if (sub_ani == NULL) break;
+		PushToAnimationList(&new_obj->animation, sub_ani);
+	}
+
+	new_node = CreateNewNode(new_object);
+	if (new_node == NULL) {
+		FreeAnimationList(new_obj->animation);
+		free(new_obj);
+		va_end(vars);
+		return -1;
+	}
+	new_node->ID = new_ID;
+
+	AddToNodeList(&registry->list, new_node);
+
+	//以下是具体类型的处理
+	if (type == OBJ_MOVABLE) {
+		MovableObject* movable = (MovableObject*)new_obj;
+		movable->type = OBJ_MOVABLE;
+		movable->acceleration = 0;
+		movable->velocity_X = 0;
+		movable->velocity_Y = 0;
+	}
+
+	va_end(vars);
 	return new_ID;
 }
 
@@ -93,74 +104,59 @@ void FreeObjectRegistry(Registry* registry) {
 	FreeObjects(registry);
 }
 
-void* NewObject(ListWithID* obj_list, Registry* template_list, ObjTemplate obj_template) {
-	Object* src_obj = (Object*)SearchObject(template_list, obj_template);
+void* NewObject(ObjTemplate obj_template, int origin_x, int origin_y) {
+	Object* src_obj = (Object*)SearchObject(&Templates_Object, obj_template);
 	if (src_obj == NULL) return NULL;
 
-	int new_ID = DistributeID(obj_list);
+	int new_ID = DistributeID(current_scene->Objects);
 
 	void* new_object;
 	Node* new_node;
-	POINT origin = { 0, 0 };
+	POINT origin = { origin_x, origin_y };
 
-	switch (src_obj->type)
-	{
-	case OBJ_NORMAL:
-		new_object = malloc(sizeof(Object));
-		if (new_object == NULL) return NULL;
-
-		Object* new_obj = (Object*)new_object;
-		
-		new_obj->type = OBJ_NORMAL;
-		new_obj->life = src_obj->life;
-		new_obj->animation = src_obj->animation;
-		new_obj->ID = new_ID;
-		new_obj->show = true;
-		new_obj->pos = origin;
-		new_obj->ani_counter = 0;
-		new_obj->ani_frameidx = 0;
-
-		new_node = CreateNewNode(new_object);
-		if (new_node == NULL) return NULL;
-
-		new_node->ID = new_ID;
-
-		AddToNodeList(&obj_list->list, new_node);
-		return new_obj;
-
-		break;
-
-	case OBJ_MOVABLE:
+	if (src_obj->type == OBJ_MOVABLE) {
 		new_object = malloc(sizeof(MovableObject));
-		if (new_object == NULL) return NULL;
+	}
+	else {
+		new_object = malloc(sizeof(Object));
+	}
+	if (new_object == NULL) return NULL;
 
-		MovableObject* new_objM = (MovableObject*)new_object;
 
-		new_objM->type = OBJ_MOVABLE;
-		new_objM->life = src_obj->life;
-		new_objM->animation = src_obj->animation;
-		new_objM->ID = new_ID;
-		new_objM->show = true;
-		new_objM->pos = origin;
-		new_objM->counter = 0;
-		new_objM->acceleration = 0;
-		new_objM->velocity_X = 0;
-		new_objM->velocity_Y = 0;
-		new_objM->ani_counter = 0;
-		new_objM->ani_frameidx = 0;
+	Object* new_obj = (Object*)new_object;
 
-		new_node = CreateNewNode(new_object);
-		if (new_node == NULL) return NULL;
+	new_obj->type = OBJ_NORMAL;
+	new_obj->life = src_obj->life;
+	new_obj->animation = src_obj->animation;
+	new_obj->ID = new_ID;
+	new_obj->show = true;
+	new_obj->pos = origin;
+	new_obj->ani_sets = src_obj->ani_sets;
+	new_obj->ani_counter = 0;
+	new_obj->ani_frameidx = 0;
+	new_obj->current_ani_set_idx = 0;
 
-		new_node->ID = new_ID;
-
-		AddToNodeList(&obj_list->list, new_node);
-		return new_objM;
-
-		break;
+	new_node = CreateNewNode(new_object);
+	if (new_node == NULL) {
+		free(new_obj);
+		return NULL;
 	}
 
-	return NULL;
+	new_node->ID = new_ID;
+
+	AddToNodeList(&current_scene->Objects->list, new_node);
+	
+	
+	if (src_obj->type == OBJ_MOVABLE) {
+		MovableObject* movable = (MovableObject*)new_obj;
+		new_obj->type = OBJ_MOVABLE;
+		movable->acceleration = 0;
+		movable->velocity_X = 0;
+		movable->velocity_Y = 0;
+	}
+	
+	//以下是具体类型的处理
+	return new_obj;
 }
 
 void* SearchObject(ListWithID* obj_list, const int ID) {
@@ -184,14 +180,15 @@ void RemoveObject(ListWithID* obj_list, void* object) {
 
 void RenderObject(void* object) {
 	Object* obj = (Object*)object;
+	Animation* ani_set = obj->animation->list[0];
 
-	if (obj->ani_counter >= obj->animation->interval) {
+	if (obj->ani_counter >= ani_set[obj->current_ani_set_idx].interval) {
 		obj->ani_counter = 0;
 		obj->ani_frameidx++;
-		obj->ani_frameidx %= obj->animation->frame_amounts;
+		obj->ani_frameidx %= ani_set[obj->current_ani_set_idx].frame_amounts;
 	}
 
-	RenderAnimation(obj->animation, obj->ani_frameidx, obj->pos.x, obj->pos.y);
+	RenderAnimation(&ani_set[obj->current_ani_set_idx], obj->ani_frameidx, obj->pos.x, obj->pos.y);
 }
 
 int RenderObjectFromNode(Node* node) {
@@ -209,13 +206,13 @@ int UpdateObjectFromNode(Node* node, clock_t delta) {
 	return 0;
 }
 
-void RenderObjectList(ListWithID* obj_list) {
-	IterateNodeList(&obj_list->list, RenderObjectFromNode);
+void RenderAllObjects() {
+	IterateNodeList(&current_scene->Objects->list, RenderObjectFromNode);
 }
 
-void UpdateObjectList(ListWithID* obj_list, clock_t delta) {
-	if (obj_list->list == NULL) return;
-	Node* cur = obj_list->list;
+void TickAllObjects(clock_t delta) {
+	if (current_scene->Objects->list == NULL) return;
+	Node* cur = current_scene->Objects->list;
 
 	while (cur != NULL) {
 		UpdateObjectFromNode(cur, delta);

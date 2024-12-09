@@ -152,6 +152,10 @@ HWND GetHWndC() {
 	return GetHWnd();
 }
 
+HDC getscreenHDC() {
+	return GetImageHDC();
+}
+
 int peekmessageC(ExMessageC* msg, BYTE filter) {
 	static ExMessage exmsg;
 	if (msg->ExMessage == NULL) {

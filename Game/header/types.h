@@ -14,5 +14,22 @@ typedef struct unqlst {
 	Node* list;	//Á´±í
 } ListWithID;
 
+typedef struct sc {
+	ListWithID* Objects;
+} Scene;
+
 #define Registry ListWithID
+#define AniTemplate Animation
 #define ObjTemplate int
+
+#define TRY(x) if (x == -1) return -1;
+
+
+extern Scene* current_scene;
+extern Scene menu;
+extern Scene game;
+extern Registry Templates_Object;
+
+inline void SetCurrentScene(Scene* next_scene) {
+	current_scene = next_scene;
+}

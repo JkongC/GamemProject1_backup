@@ -3,32 +3,32 @@
   "WorkspaceRootPath": "E:\\Project1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\src\\objects.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\src\\objects.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\src\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\src\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\src\\util.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\src\\util.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\src\\animation.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\src\\animation.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\header\\objects.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\header\\objects.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\header\\types.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\header\\types.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\src\\util.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\src\\util.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\header\\util.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\header\\util.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\src\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\src\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\header\\animation.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\header\\animation.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|E:\\Project1\\Game\\header\\util.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD5AAFDA-129B-40F4-902C-19EC0D001F84}|Game\\Game.vcxproj|solutionrelative:Game\\header\\util.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,16 +42,17 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "animation.h",
               "DocumentMoniker": "E:\\Project1\\Game\\header\\animation.h",
               "RelativeDocumentMoniker": "Game\\header\\animation.h",
               "ToolTip": "E:\\Project1\\Game\\header\\animation.h",
               "RelativeToolTip": "Game\\header\\animation.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-12-06T18:33:38.252Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -68,53 +69,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "objects.c",
-              "DocumentMoniker": "E:\\Project1\\Game\\src\\objects.c",
-              "RelativeDocumentMoniker": "Game\\src\\objects.c",
-              "ToolTip": "E:\\Project1\\Game\\src\\objects.c",
-              "RelativeToolTip": "Game\\src\\objects.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAADAAAAAAAAAA==",
+              "Title": "util.c",
+              "DocumentMoniker": "E:\\Project1\\Game\\src\\util.c",
+              "RelativeDocumentMoniker": "Game\\src\\util.c",
+              "ToolTip": "E:\\Project1\\Game\\src\\util.c",
+              "RelativeToolTip": "Game\\src\\util.c",
+              "ViewState": "AgIAAK0AAAAAAAAAAAAywKUAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-12-08T11:33:19.968Z",
+              "WhenOpened": "2024-12-09T15:21:18.637Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "animation.c",
-              "DocumentMoniker": "E:\\Project1\\Game\\src\\animation.c",
-              "RelativeDocumentMoniker": "Game\\src\\animation.c",
-              "ToolTip": "E:\\Project1\\Game\\src\\animation.c",
-              "RelativeToolTip": "Game\\src\\animation.c",
-              "ViewState": "AgIAABoAAAAAAAAAAAAqwCoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-12-08T11:25:31.965Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "main.c",
-              "DocumentMoniker": "E:\\Project1\\Game\\src\\main.c",
-              "RelativeDocumentMoniker": "Game\\src\\main.c",
-              "ToolTip": "E:\\Project1\\Game\\src\\main.c",
-              "RelativeToolTip": "Game\\src\\main.c",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB8AAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-12-04T13:09:04.684Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "util.h",
-              "DocumentMoniker": "E:\\Project1\\Game\\header\\util.h",
-              "RelativeDocumentMoniker": "Game\\header\\util.h",
-              "ToolTip": "E:\\Project1\\Game\\header\\util.h",
-              "RelativeToolTip": "Game\\header\\util.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-08T09:54:28.638Z"
             },
             {
               "$type": "Document",
@@ -124,22 +87,61 @@
               "RelativeDocumentMoniker": "Game\\header\\types.h",
               "ToolTip": "E:\\Project1\\Game\\header\\types.h",
               "RelativeToolTip": "Game\\header\\types.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-08T09:48:31.857Z",
+              "WhenOpened": "2024-12-09T14:49:19.843Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "util.c",
-              "DocumentMoniker": "E:\\Project1\\Game\\src\\util.c",
-              "RelativeDocumentMoniker": "Game\\src\\util.c",
-              "ToolTip": "E:\\Project1\\Game\\src\\util.c",
-              "RelativeToolTip": "Game\\src\\util.c",
-              "ViewState": "AgIAAIIAAAAAAAAAAAAqwJYAAAAAAAAAAAAAAA==",
+              "Title": "main.c",
+              "DocumentMoniker": "E:\\Project1\\Game\\src\\main.c",
+              "RelativeDocumentMoniker": "Game\\src\\main.c",
+              "ToolTip": "E:\\Project1\\Game\\src\\main.c",
+              "RelativeToolTip": "Game\\src\\main.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-12-08T08:30:27.268Z",
+              "WhenOpened": "2024-12-04T13:09:04.684Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "objects.h",
+              "DocumentMoniker": "E:\\Project1\\Game\\header\\objects.h",
+              "RelativeDocumentMoniker": "Game\\header\\objects.h",
+              "ToolTip": "E:\\Project1\\Game\\header\\objects.h",
+              "RelativeToolTip": "Game\\header\\objects.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-08T16:43:45.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "animation.c",
+              "DocumentMoniker": "E:\\Project1\\Game\\src\\animation.c",
+              "RelativeDocumentMoniker": "Game\\src\\animation.c",
+              "ToolTip": "E:\\Project1\\Game\\src\\animation.c",
+              "RelativeToolTip": "Game\\src\\animation.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-12-08T11:25:31.965Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "util.h",
+              "DocumentMoniker": "E:\\Project1\\Game\\header\\util.h",
+              "RelativeDocumentMoniker": "Game\\header\\util.h",
+              "ToolTip": "E:\\Project1\\Game\\header\\util.h",
+              "RelativeToolTip": "Game\\header\\util.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-08T09:54:28.638Z",
               "EditorCaption": ""
             }
           ]

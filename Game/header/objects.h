@@ -11,7 +11,9 @@ typedef struct obj {
 	int life;
 	bool show;
 	POINT pos;
-	Animation* animation;
+	AnimationList* animation;
+	int ani_sets;
+	int current_ani_set_idx;
 	clock_t ani_counter;
 	int ani_frameidx;
 } Object;
@@ -34,7 +36,7 @@ typedef struct apple {
 
 int DistributeID(ListWithID* obj_list);
 
-ObjTemplate RegisterObject(Registry* registry, int type, int life, Animation** ani);
+ObjTemplate RegisterObject(Registry* registry, int type, int life, int ani_sets, Animation* ani, ...);
 
 void FreeObjects(ListWithID* obj_list);
 
@@ -42,7 +44,7 @@ void FreeObjectRegistry(Registry* registry);
 
 
 
-void* NewObject(ListWithID* obj_list, Registry* template_list, ObjTemplate src);
+void* NewObject(ObjTemplate src, int origin_x, int origin_y);
 
 void* SearchObject(ListWithID* obj_list, const int ID);
 
@@ -60,6 +62,6 @@ int UpdateObjectFromNode(Node* node, clock_t delta);
 
 
 
-void RenderObjectList(ListWithID* obj_list);
+void RenderAllObjects();
 
-void UpdateObjectList(ListWithID* obj_list, clock_t delta);
+void TickAllObjects(clock_t delta);

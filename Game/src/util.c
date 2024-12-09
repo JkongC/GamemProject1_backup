@@ -5,13 +5,20 @@
 #include "animation.h"
 #include "util.h"
 
+int InitializeAnimationList(AnimationList** ani_list) {
+	*ani_list = (AnimationList*)malloc(sizeof(AnimationList) + 10 * sizeof(Animation*));
+	if (*ani_list == NULL) return -1;
+	
+	(*ani_list)->capacity = 10;
+	(*ani_list)->size = 0;
+	return 0;
+}
+
 int PushToAnimationList(AnimationList** ani_list, Animation* ani) {
 	AnimationList* a_list = *ani_list;
 	if (a_list->size == a_list->capacity) {
 		AnimationList* new_list = (AnimationList*)realloc(a_list, sizeof(AnimationList) + (a_list->capacity + 5) * sizeof(Animation*));
-		if (new_list == NULL) {
-			return -1;
-		}
+		if (new_list == NULL) return -1;
 
 		*ani_list = new_list;
 		(*ani_list)->capacity += 5;
@@ -50,6 +57,14 @@ void FreeAnimationList(AnimationList* ani_list) {
 
 void InitializeListWithID(ListWithID* empty_list) {
 	memset(empty_list, 0, sizeof(ListWithID));
+}
+
+int InitializeScene(Scene* scene) {
+	scene->Objects = (ListWithID*)malloc(sizeof(ListWithID));
+	if (scene->Objects == NULL) return -1;
+	
+	InitializeListWithID(scene->Objects);
+	return 0;
 }
 
 Node* ToLastNode(Node** head) {

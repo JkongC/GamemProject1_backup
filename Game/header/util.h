@@ -1,5 +1,7 @@
 #pragma once
 
+int InitializeAnimationList(AnimationList** ani_list);
+
 int PushToAnimationList(AnimationList** ani_list, Animation* ani);
 
 int RemoveFromAnimationList(AnimationList** ani_list, Animation* ani);
@@ -7,6 +9,9 @@ int RemoveFromAnimationList(AnimationList** ani_list, Animation* ani);
 void FreeAnimationList(AnimationList* ani_list);
 
 void InitializeListWithID(ListWithID* empty_list);
+
+
+int InitializeScene(Scene* scene);
 
 
 Node* ToLastNode(Node** head);

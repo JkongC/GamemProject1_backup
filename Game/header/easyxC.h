@@ -115,6 +115,7 @@ extern "C"
 	void cleardeviceC();
 
 	HWND GetHWndC();
+	HDC getscreenHDC();
 
 	void outtextxyC(int x, int y, TCHAR c);
 	void outtextxyCS(int x, int y, LPCTSTR str);

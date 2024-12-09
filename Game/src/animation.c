@@ -1,3 +1,5 @@
+#pragma comment(lib, "Msimg32.lib")
+
 #include <Windows.h>
 #include <tchar.h>
 #include <time.h>
@@ -39,5 +41,6 @@ int RemoveAnimation(AnimationList** ani_list, Animation* todel) {
 }
 
 void RenderAnimation(Animation* animation, int frame_index, int pos_x, int pos_y) {
-	putimageCS(pos_x, pos_y, animation->width, animation->height, animation->atlas, animation->atlas_position.x + frame_index * animation->width, animation->atlas_position.y);
+	BLENDFUNCTION bl = {AC_SRC_OVER, 0, 255, AC_SRC_ALPHA};
+	AlphaBlend(getscreenHDC(), pos_x, pos_y, animation->width, animation->height, GetImageHDCC(animation->atlas), animation->atlas_position.x + frame_index * animation->width, animation->atlas_position.y, animation->width, animation->height, bl);
 }
