@@ -139,6 +139,7 @@ void* NewObject(ObjTemplate obj_template, int origin_x, int origin_y) {
 	Node* new_node;
 	POINT origin = { origin_x, origin_y };
 
+	//ÄÚ´æ·ÖÅä--------------------------------------------------------------------
 	switch (src_obj->type)
 	{
 	case button:
@@ -158,6 +159,7 @@ void* NewObject(ObjTemplate obj_template, int origin_x, int origin_y) {
 		break;
 	}
 	if (new_object == NULL) return NULL;
+	//---------------------------------------------------------------------------------
 
 
 	Object* new_obj = (Object*)new_object;
@@ -184,6 +186,7 @@ void* NewObject(ObjTemplate obj_template, int origin_x, int origin_y) {
 	AddToNodeList(&current_scene->Objects->list, new_node);
 	
 	
+	//------------------------------------------------------------------------------------
 	switch (new_obj->type)
 	{
 	case button:
@@ -202,6 +205,7 @@ void* NewObject(ObjTemplate obj_template, int origin_x, int origin_y) {
 	default:
 		break;
 	}
+	//------------------------------------------------------------------------------------
 	
 	return new_obj;
 }
