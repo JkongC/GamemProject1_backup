@@ -55,15 +55,16 @@ void FreeAnimationList(AnimationList* ani_list) {
 	free(ani_list);
 }
 
-void InitializeListWithID(ListWithID* empty_list) {
-	memset(empty_list, 0, sizeof(ListWithID));
+int InitializeListWithID(ListWithID** empty_list) {
+	*empty_list = (ListWithID*)malloc(sizeof(ListWithID));
+	if (*empty_list == NULL) return -1;
+	
+	memset(*empty_list, 0, sizeof(ListWithID));
+	return 0;
 }
 
 int InitializeScene(Scene* scene) {
-	scene->Objects = (ListWithID*)malloc(sizeof(ListWithID));
-	if (scene->Objects == NULL) return -1;
-	
-	InitializeListWithID(scene->Objects);
+	if ((InitializeListWithID(&scene->Objects)) == -1) return -1;
 	return 0;
 }
 

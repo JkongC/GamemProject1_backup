@@ -8,8 +8,8 @@ int RemoveFromAnimationList(AnimationList** ani_list, Animation* ani);
 
 void FreeAnimationList(AnimationList* ani_list);
 
-void InitializeListWithID(ListWithID* empty_list);
 
+int InitializeListWithID(ListWithID** empty_list);
 
 int InitializeScene(Scene* scene);
 

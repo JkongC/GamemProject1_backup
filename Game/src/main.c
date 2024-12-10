@@ -16,7 +16,7 @@ AnimationList* Templates_Animation;
 AniTemplate* peashooter_idle_1;
 AniTemplate* walk;
 
-Registry Templates_Object;
+Registry* Templates_Object;
 ObjTemplate peashooter;
 ObjTemplate ltman;
 
@@ -26,27 +26,27 @@ Scene game;
 
 int LoadResources() {
 	//初始化动画模板列表
-	TRY(InitializeAnimationList(&Templates_Animation));
+	TRY(InitializeAnimationList(&Templates_Animation))
 
 	//初始化场景变量
-	TRY(InitializeScene(&menu));
-	TRY(InitializeScene(&game));
-	SetCurrentScene(&menu);
+	TRY(InitializeScene(&menu))
+	TRY(InitializeScene(&game))
 	
 	//初始化动画模板
-	TRY(CreateAnimationTemplate(&Templates_Animation, &peashooter_idle_1, 0, 1, 0, 0, IDB_PNG1, 96, 96, 1));
-	TRY(CreateAnimationTemplate(&Templates_Animation, &walk, 200, 4, 0, 0, RC_TEST, 15, 17, 4));
-	
+	InitializeListWithID(&Templates_Object);
+	TRY(CreateAnimationTemplate(&Templates_Animation, &peashooter_idle_1, 0, 1, 0, 0, IDB_PNG1, 96, 96, 1))
+	TRY(CreateAnimationTemplate(&Templates_Animation, &walk, 200, 4, 0, 0, RC_TEST, 15, 17, 4))
+
 	//注册游戏对象
-	peashooter = RegisterObject(&Templates_Object, OBJ_NORMAL, LIFE_INF, 1, peashooter_idle_1);
-	ltman = RegisterObject(&Templates_Object, OBJ_NORMAL, LIFE_INF, 1, walk);
+	peashooter = RegisterObject(Templates_Object, player, LIFE_INF, 1, peashooter_idle_1);
+	ltman = RegisterObject(Templates_Object, player, LIFE_INF, 1, walk);
 
 	return 0;
 }
 
 void FreeResources() {
 	FreeAnimationList(Templates_Animation);
-	FreeObjectRegistry(&Templates_Object);
+	FreeObjectRegistry(Templates_Object);
 	FreeObjects(current_scene->Objects);
 	free(menu.Objects);
 	free(game.Objects);
@@ -60,13 +60,14 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevHInstance, 
 	TRY(LoadResources());  //加载资源
 	
 	HWND hWnd = initgraphC(1280, 960, EX_NOCLOSE);  //初始化窗口
+	SetCurrentScene(&menu);  //设置当前场景：菜单
 
 	int running = 1;  //标志游戏是否应继续运行
 
 	//以下四行是对象创建的例子
-	Object* ps1 = NewObject(peashooter, 200, 200);  //创建peashooter对象并用ps1储存其地址
+	Player* ps1 = NewObject(peashooter, 200, 200);  //创建peashooter对象并用ps1储存其地址，变量类型用Object还是更具体的，看需要
 
-	Object* littleman = NewObject(ltman, 500, 500); //需要指定对象初始坐标
+	Player* littleman = NewObject(ltman, 500, 500); //需要指定对象初始坐标
 
 	Object* littleman_copy = NewObject(ltman, 800, 300);
 

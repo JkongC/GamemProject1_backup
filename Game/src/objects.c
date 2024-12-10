@@ -26,22 +26,35 @@ int DistributeID(ListWithID* obj_list) {
 	return -1;
 }
 
-ObjTemplate RegisterObject(Registry* registry, int type, int life, int ani_sets, Animation* ani_1, ...) {
+ObjTemplate RegisterObject(Registry* registry, enum Type type, int life, int ani_sets, Animation* ani_1, ...) {
 	
 	va_list vars;
 	va_start(vars, ani_1);
 	
-	int new_ID = DistributeID(registry);
-	
 	void* new_object;
 	Node* new_node;
 
-	if (type == OBJ_MOVABLE) {
-		new_object = malloc(sizeof(MovableObject));
+	//分配内存--------------------------------------------------------------
+	switch (type)
+	{
+	case button:
+		new_object = malloc(sizeof(Player));
+		break;
+	case player:
+		new_object = malloc(sizeof(Player));
+		break;
+	case enemy:
+		new_object = malloc(sizeof(Player));
+		break;
+	case npc:
+		new_object = malloc(sizeof(Player));
+		break;
+	default:
+		new_object = malloc(sizeof(Player));
+		break;
 	}
-	else {
-		new_object = malloc(sizeof(MovableObject));
-	}
+	//------------------------------------------------------------------------
+
 	if (new_object == NULL) {
 		va_end(vars);
 		return -1;
@@ -54,9 +67,8 @@ ObjTemplate RegisterObject(Registry* registry, int type, int life, int ani_sets,
 		return -1;
 	}
 
-	new_obj->type = OBJ_NORMAL;
+	new_obj->type = type;
 	new_obj->life = life;
-	new_obj->ID = new_ID;
 	new_obj->show = false;
 	new_obj->pos.x = 0;
 	new_obj->pos.y = 0;
@@ -79,18 +91,31 @@ ObjTemplate RegisterObject(Registry* registry, int type, int life, int ani_sets,
 		va_end(vars);
 		return -1;
 	}
+	int new_ID = DistributeID(registry);
 	new_node->ID = new_ID;
 
 	AddToNodeList(&registry->list, new_node);
 
-	//以下是具体类型的处理
-	if (type == OBJ_MOVABLE) {
-		MovableObject* movable = (MovableObject*)new_obj;
-		movable->type = OBJ_MOVABLE;
-		movable->acceleration = 0;
-		movable->velocity_X = 0;
-		movable->velocity_Y = 0;
+	//以下是具体类型的处理----------------------------------------------------------------
+	switch (type)
+	{
+	case button:
+		break;
+	case player:
+		Player* sp = (Player*)new_obj;
+		sp->acceleration = 0;
+		sp->velocity_X = 0;
+		sp->velocity_Y = 0;
+		sp->time_counter = 0;
+		break;
+	case enemy:
+		break;
+	case npc:
+		break;
+	default:
+		break;
 	}
+	//------------------------------------------------------------------------------------
 
 	va_end(vars);
 	return new_ID;
@@ -105,7 +130,7 @@ void FreeObjectRegistry(Registry* registry) {
 }
 
 void* NewObject(ObjTemplate obj_template, int origin_x, int origin_y) {
-	Object* src_obj = (Object*)SearchObject(&Templates_Object, obj_template);
+	Object* src_obj = (Object*)SearchObject(Templates_Object, obj_template);
 	if (src_obj == NULL) return NULL;
 
 	int new_ID = DistributeID(current_scene->Objects);
@@ -114,18 +139,30 @@ void* NewObject(ObjTemplate obj_template, int origin_x, int origin_y) {
 	Node* new_node;
 	POINT origin = { origin_x, origin_y };
 
-	if (src_obj->type == OBJ_MOVABLE) {
-		new_object = malloc(sizeof(MovableObject));
-	}
-	else {
-		new_object = malloc(sizeof(Object));
+	switch (src_obj->type)
+	{
+	case button:
+		new_object = malloc(sizeof(Player));
+		break;
+	case player:
+		new_object = malloc(sizeof(Player));
+		break;
+	case enemy:
+		new_object = malloc(sizeof(Player));
+		break;
+	case npc:
+		new_object = malloc(sizeof(Player));
+		break;
+	default:
+		new_object = malloc(sizeof(Player));
+		break;
 	}
 	if (new_object == NULL) return NULL;
 
 
 	Object* new_obj = (Object*)new_object;
 
-	new_obj->type = OBJ_NORMAL;
+	new_obj->type = src_obj->type;
 	new_obj->life = src_obj->life;
 	new_obj->animation = src_obj->animation;
 	new_obj->ID = new_ID;
@@ -147,15 +184,25 @@ void* NewObject(ObjTemplate obj_template, int origin_x, int origin_y) {
 	AddToNodeList(&current_scene->Objects->list, new_node);
 	
 	
-	if (src_obj->type == OBJ_MOVABLE) {
-		MovableObject* movable = (MovableObject*)new_obj;
-		new_obj->type = OBJ_MOVABLE;
-		movable->acceleration = 0;
-		movable->velocity_X = 0;
-		movable->velocity_Y = 0;
+	switch (new_obj->type)
+	{
+	case button:
+		break;
+	case player:
+		Player* sp = (Player*)new_obj;
+		sp->acceleration = 0;
+		sp->velocity_X = 0;
+		sp->velocity_Y = 0;
+		sp->time_counter = 0;
+		break;
+	case enemy:
+		break;
+	case npc:
+		break;
+	default:
+		break;
 	}
 	
-	//以下是具体类型的处理
 	return new_obj;
 }
 
@@ -180,15 +227,14 @@ void RemoveObject(ListWithID* obj_list, void* object) {
 
 void RenderObject(void* object) {
 	Object* obj = (Object*)object;
-	Animation* ani_set = obj->animation->list[0];
-
-	if (obj->ani_counter >= ani_set[obj->current_ani_set_idx].interval) {
-		obj->ani_counter = 0;
-		obj->ani_frameidx++;
-		obj->ani_frameidx %= ani_set[obj->current_ani_set_idx].frame_amounts;
+	switch (obj->type)
+	{
+	case player:
+		Player_render((Player*)obj);
+		break;
+	default:
+		break;
 	}
-
-	RenderAnimation(&ani_set[obj->current_ani_set_idx], obj->ani_frameidx, obj->pos.x, obj->pos.y);
 }
 
 int RenderObjectFromNode(Node* node) {
@@ -198,7 +244,14 @@ int RenderObjectFromNode(Node* node) {
 
 void UpdateObject(void* object, clock_t delta) {
 	Object* obj = (Object*)object;
-	obj->ani_counter += delta;
+	switch (obj->type)
+	{
+	case player:
+		Player_tick((Player*)obj, delta);
+		break;
+	default:
+		break;
+	}
 }
 
 int UpdateObjectFromNode(Node* node, clock_t delta) {
@@ -218,4 +271,27 @@ void TickAllObjects(clock_t delta) {
 		UpdateObjectFromNode(cur, delta);
 		cur = cur->next;
 	}
+}
+
+void RemoveAllObjects() {
+	FreeObjects(current_scene->Objects);
+}
+
+
+
+
+void Player_render(Player* player) {
+	Animation* ani_set = player->animation->list[0];
+
+	if (player->ani_counter >= ani_set[player->current_ani_set_idx].interval) {
+		player->ani_counter = 0;
+		player->ani_frameidx++;
+		player->ani_frameidx %= ani_set[player->current_ani_set_idx].frame_amounts;
+	}
+
+	RenderAnimation(&ani_set[player->current_ani_set_idx], player->ani_frameidx, player->pos.x, player->pos.y);
+}
+
+void Player_tick(Player* player, clock_t delta) {
+	player->ani_counter += delta;
 }
